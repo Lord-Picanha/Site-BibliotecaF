@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca Municipal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TELA DE PROTEÇÃO / ACESSO RESTRITO -->
+  <div id="screen-acesso" class="login-overlay">
+    <div class="login-card">
+      <h2>Acesso Restrito</h2>
+      <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
+        Sistema exclusivo para funcionários da biblioteca.
+      </p>
+
+      <form id="form-acesso">
+        <div class="input-group">
+    <label for="senha-acesso">Senha de Acesso</label>
+    <div class="input-password-wrapper">
+        <input type="password" id="senha-acesso" required placeholder="Digite a senha..." autofocus />
+        <button type="button" id="btn-toggle-senha" class="btn-eye" title="Mostrar/Ocultar senha">👁️</button>
+    </div>
+</div>
+
+        <p id="acesso-erro" class="login-erro">Senha incorreta!</p>
+
+        <button type="submit" class="btn-salvar">Acessar Sistema</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- HEADER DA PÁGINA -->
+  <header>
+    <h1>BIBLIOTECA MUNICIPAL DE CRUZEIRO-SP</h1>
+    <div class="header-right">
+      <button class="add-cadastro">+ Adicionar Cadastro</button>
+      <button id="btn-bloquear" class="btn-logout" title="Bloquear Sistema">Bloquear -</button>
+    </div>
+  </header>
+
+<!-- PAINEL DE MÉTRICAS -->
+<div class="dashboard-stats">
+  <div class="stat-card">
+    <span class="stat-icon">👥</span>
+    <div class="stat-info">
+      <span class="stat-value" id="total-leitores">0</span>
+      <span class="stat-label">Leitores Cadastrados</span>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <span class="stat-icon">📚</span>
+    <div class="stat-info">
+      <span class="stat-value" id="total-emprestimos">0</span>
+      <span class="stat-label">Empréstimos Ativos</span>
+    </div>
+  </div>
+</div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+<main class="main-content">
+  <form class="search-container">
+    <input type="text" class="search-input" placeholder="Digite o nome..." />
+    <button type="submit" class="search-button">Buscar</button>
+  </form>
+
+  <!-- ESTADO VAZIO -->
+  <div id="empty-state" class="empty-card">
+    <div class="empty-icon">📖</div>
+    <h3>Nenhum cadastro encontrado</h3>
+    <p>Pesquise por outro nome ou adicione o primeiro leitor da biblioteca.</p>
+    <button onclick="document.querySelector('.add-cadastro').click()" class="btn-empty-action">
+      + Cadastrar Novo Leitor
+    </button>
+  </div>
+
+  <div id="lista-cadastros" class="lista-cadastros"></div>
+</main>
+
+  <!-- MODAL DE CADASTRO DE LEITOR -->
+  <div id="modal-cadastro" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" id="btn-fechar">&times;</span>
+      <h2>Novo Cadastro</h2>
+      
+      <form id="form-cadastro">
+        <div class="input-group">
+          <label for="nome">Nome Completo</label>
+          <input type="text" id="nome" required placeholder="Digite o nome..." />
+        </div>
+
+        <div class="input-group">
+          <label for="rg">RG (Registro Geral)</label>
+          <input type="text" id="rg" required placeholder="00.000.000-0" />
+        </div>
+
+        <div class="input-group">
+          <label for="endereco">End.</label>
+          <input type="text" id="endereco" placeholder="Digite o endereço..." />
+        </div>
+
+        <div class="input-group">
+          <label for="data-nasc">Data de Nascimento</label>
+          <input type="date" id="data-nasc" required />
+        </div>
+
+        <button type="submit" class="btn-salvar">Salvar Cadastro</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE EMPRÉSTIMO -->
+  <div id="modal-emprestimo" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" id="btn-fechar-emprestimo">&times;</span>
+      <h2>Novo Empréstimo</h2>
+      <p id="nome-leitor-emprestimo" style="color: #666; font-size: 14px; margin-bottom: 15px; font-weight: 600;"></p>
+
+      <form id="form-emprestimo">
+        <input type="hidden" id="emprestimo-user-id" />
+
+        <div class="input-group">
+          <label for="nome-livro">Nome do Livro</label>
+          <input type="text" id="nome-livro" required placeholder="Digite o nome do livro..." />
+        </div>
+
+        <div class="input-group">
+          <label for="data-devolucao">Data Prevista de Devolução</label>
+          <input type="date" id="data-devolucao" required />
+        </div>
+
+        <button type="submit" class="btn-salvar">Registrar Empréstimo</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
